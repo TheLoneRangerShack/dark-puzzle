@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { FlowChart, ICanvasOuterDefaultProps } from '@mrblenny/react-flow-chart';
 import styled from 'styled-components';
 import * as actions from '@mrblenny/react-flow-chart/src/container/actions';
+import Head from 'next/head'
 
 const completeLinks = [
 {l: "port1", r: "port24"},
@@ -400,6 +401,7 @@ export default function FamilyTree() {
 stage: 1,
 header: first,
 random: 9999,
+tick: 0,
 chart: {
     offset: {
       x: 0,
@@ -904,7 +906,9 @@ const timeTravel = () => {
 }
 
 const madTick = () => {
-  updateState({...state, ...{random: Math.floor(Math.random() * (200)) + 1850}});
+  let {tick, random} = state;
+  let year = tick % 3 == 0?(Math.floor(Math.random() * (167)) + 1883):(tick % 3 == 1?random-33:random);
+  updateState({...state, ...{random: year, tick: tick+1}});
 }
 
   let stateActionCallbacks = Object.keys(actions).reduce((obj, key, idx) => {
@@ -923,7 +927,7 @@ const madTick = () => {
 		);
 	});
 	if(f === true) {
-		console.log("DONE!!");
+		//console.log("DONE!!");
 		updateState({ ...state, ...{stage: 3, header: third}});	
 		alreadyUpdated = true;
 	}
@@ -938,6 +942,10 @@ const madTick = () => {
   }, {});
   return (
     <div>
+      <Head>
+        <title>A Dark Puzzle</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       <Header
         onClick={() => {
           try {
