@@ -46,7 +46,7 @@ class Timer extends React.Component {
   }
 
   tick() {
-	if( (new Date()).getFullYear() === 1987 ) {
+	if( (new Date()).getFullYear() === this.props.serverYear ) {
           this.props.timeTravel();
         }
 	else {
@@ -392,10 +392,19 @@ const CanvasCustom = React.forwardRef(({ children, ...otherProps }, ref) => {
    })
 
 
+export function getServerSideProps() {
+  const serverYear = (new Date()).getFullYear() - 33;
+  return {
+	  props: {
+		 serverYear,
+	  },
+  };
+}
+
 const first = 'To Go Forward, You Must Go Backwards';
 const second = 'Tie The Knots, To Unravel The Mystery';
 const third = 'A New Cycle Begins, Congratulations And Condolences';
-export default function FamilyTree() {
+export default function FamilyTree({serverYear}) {
 
   let [state, updateState] = useState({
 stage: 1,
@@ -957,7 +966,7 @@ const madTick = () => {
 	>
         {state.header} {state.random}
       </Header>
-      { state.stage === 1? <Timer timeTravel={timeTravel} madTick={madTick} />: null }
+      { state.stage === 1? <Timer timeTravel={timeTravel} madTick={madTick} serverYear={serverYear}/>: null }
       { state.stage === 2?
         <FlowChart chart={state.chart} callbacks={stateActionCallbacks} Components={{Node: NodeCustom, CanvasOuter: CanvasCustom,}}/>
       : state.stage === 1?<FillerStart />:<FillerEnd /> }
