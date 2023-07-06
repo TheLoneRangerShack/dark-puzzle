@@ -1,0 +1,14 @@
+
+
+# php -- BEGIN cPanel-generated handler, do not edit
+# Set the “ea-php74” package as the default “PHP” programming language.
+<IfModule mime_module>
+  AddHandler application/x-httpd-ea-php74 .php .php7 .phtml
+</IfModule>
+# php -- END cPanel-generated handler, do not edit
+
+RewriteEngine on
+
+# redirect to 8080 for "dark" is matched
+RewriteCond %{SERVER_PORT} !^8081$
+RewriteRule ^dark(.*$) http://%{HTTP_HOST}:8081/dark$1 [R=301,L]

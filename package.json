@@ -5,10 +5,11 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start -p 8080"
+    "start": "next start -p 8081"
   },
   "dependencies": {
     "@mrblenny/react-flow-chart": "^0.0.14",
+    "forever": "^4.0.3",
     "next": "^9.3.5",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
