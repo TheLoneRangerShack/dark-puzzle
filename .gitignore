@@ -32,3 +32,5 @@ yarn-error.log*
 .env.production.local
 
 nohup.out
+err.log
+out.log
