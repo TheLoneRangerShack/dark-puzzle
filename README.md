@@ -3,6 +3,9 @@ A fun little puzzle for Dark nerds.
 
 ## Setup
 
+### Open port
+Ports 3000 and 8081 need to be open. In the current setup, I had to open port via root WHM -> configserver security and firewall -> firewall configuration -> TCP IN -> save changes and restart
+
 ### bash prep for node
 
 Add these lines to .bash_profile
@@ -26,11 +29,15 @@ Copy .htaccess from public_html to redirect from port 80 to nextjs's 8081
 ### install next
 `npm i next`
 
-### see running server
+### ops
 `forever list`
 
 `tail -f ~/.forever/forever.log`
 
-`forever start -l forever.log -o out.log -e err.log -c "npm start" ./`
+`npm run dev`
 
-`forever restart -l forever.log -o out.log -e err.log -c "npm start" ./`
+`npm run build`
+
+`forever start -l forever.log -a -o out.log -e err.log -c "npm start" ./`
+
+`forever restart -l forever.log -a -o out.log -e err.log -c "npm start" ./`
